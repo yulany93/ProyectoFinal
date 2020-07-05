@@ -53,18 +53,19 @@ public class Menu {
 		System.out.println("Por favor digite la matricula del vehículo");
 		matricula = teclado.next();
 				
-		Aparcamiento vehi = new EncontrarMatricula(matricula);		
-		if (vehi != null) {				
-			System.out.println("El vehiculo ya se encuentra en el parqueadero.");			
-			return; 
-		}
+		
 		
 		System.out.println("Por favor digite el tipo de vehículo que ingresa");
 		System.out.println("(1) Vehiculo Oficial");
 		System.out.println("(2) Vehiculo Residente");
 		System.out.println("(3) Vehiculo No Residente");
 		opcion = teclado.nextInt();		
-		ap.entra(matricula, opcion); 
+		ap.EncontrarMatricula(matricula);		
+		if (ap != null) {				
+			System.out.println("El vehiculo ya se encuentra en el parqueadero.");			
+			return; 
+		}
+		//ap.entra(matricula, opcion); 
 
 	}
 
