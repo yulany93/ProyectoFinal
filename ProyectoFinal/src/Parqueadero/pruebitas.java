@@ -10,7 +10,7 @@ public class pruebitas {
 		LocalDateTime horaEntrada;
 		horaEntrada = LocalDateTime.of(2017, 07, 06, 23, 30, 00);
 		LocalDateTime horaSalida;
-		horaSalida = LocalDateTime.of(2017, 07, 07, 23, 35, 00);
+		horaSalida = LocalDateTime.of(2017, 07, 07, 23, 40, 00);
 		
 					//Duration d1 = Duration.between(horaEntrada, horaSalida);
 					System.out.println(ChronoUnit.MINUTES.between(horaEntrada, horaSalida));
