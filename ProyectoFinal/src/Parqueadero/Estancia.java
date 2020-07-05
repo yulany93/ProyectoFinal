@@ -11,10 +11,8 @@ public class Estancia {
 
 	
 	public Estancia(LocalDateTime horaEntrada, LocalDateTime horaSalida) {
-		super();
 		this.horaEntrada = horaEntrada;
 		this.horaSalida = horaSalida;
-
 	}
 
 	public LocalDateTime getHoraEntrada() {

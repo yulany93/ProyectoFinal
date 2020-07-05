@@ -2,6 +2,7 @@ package Parqueadero;
 
 import java.util.Scanner;
 
+
 public class Menu {
 	static Scanner teclado = new Scanner(System.in);
 	static Aparcamiento ap = new Aparcamiento();
@@ -51,17 +52,24 @@ public class Menu {
 		int opcion;
 		System.out.println("Por favor digite la matricula del vehículo");
 		matricula = teclado.next();
+				
+		Aparcamiento vehi = new EncontrarMatricula(matricula);		
+		if (vehi != null) {				
+			System.out.println("El vehiculo ya se encuentra en el parqueadero.");			
+			return; 
+		}
+		
 		System.out.println("Por favor digite el tipo de vehículo que ingresa");
 		System.out.println("(1) Vehiculo Oficial");
 		System.out.println("(2) Vehiculo Residente");
 		System.out.println("(3) Vehiculo No Residente");
-		opcion = teclado.nextInt();
+		opcion = teclado.nextInt();		
 		ap.entra(matricula, opcion); 
 
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Bienvenido al parqueadero El mejor");
+		System.out.println("Bienvenido al parqueadero 'El mejor'");
 		menuPrincipal();
 	}
 

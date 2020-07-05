@@ -9,14 +9,28 @@ import java.io.RandomAccessFile;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Aparcamiento {
 	ArrayList<VehiculoNoResidente> vehiculos = new ArrayList<VehiculoNoResidente>();
 	ArrayList<VehiculoOficial> vehOficiales = new ArrayList<VehiculoOficial>();
 	ArrayList<VehiculoResidente> vehResidente = new ArrayList<VehiculoResidente>();
+	// String matriculaVehiculo;
 
 	public Aparcamiento() {
 
+	}
+
+	public VehiculoOficial EncontrarMatricula(String matricula) {
+		if (vehOficiales != null) {
+			for (VehiculoOficial vehi : vehOficiales) {
+
+				if (vehi.getMatricula() == matricula) {
+					return vehi;
+				}
+			}
+		}
+		return null;
 	}
 
 	public static LocalDateTime obtenerHoraActual() {
@@ -49,43 +63,55 @@ public class Aparcamiento {
 	public void entra(String matriculaN, int opcion) {
 		LocalDateTime horaActual = obtenerHoraActual();
 		Estancia est = new Estancia(horaActual, horaActual);
-		
+
 		switch (opcion) {
 		case 1:
-			if (vehOficiales.size() == 0) {
-				registraOficial(matriculaN, est);
-			} else {
-				boolean igual = false;
-				for (int i = 0; i < vehOficiales.size(); i++) {
-					if (vehOficiales.get(i).matricula .equals(matriculaN)) {
-						vehOficiales.get(i).estancias.add(est);
-						i = vehOficiales.size();
-						igual = true;
-					}
-				}
-				if (igual = false) {
+			try {
+				if (vehOficiales.size() == 0) {
 					registraOficial(matriculaN, est);
-				}
-			}
-
-			break;
-		case 2:
-			if (vehResidente.size() == 0) {
-				registraResidente(matriculaN, est);
-			} else {
-				boolean igual = false;
-				for (int i = 0; i < vehResidente.size(); i++) {
-					if (vehResidente.get(i).matricula .equals(matriculaN)) {
-						vehResidente.get(i).estancias.add(est);
-						i = vehResidente.size();
-						igual = true;
+				} else {
+					boolean igual = false;
+					for (int i = 0; i < vehOficiales.size(); i++) {
+						if (vehOficiales.get(i).matricula.equals(matriculaN)) {
+							vehOficiales.get(i).estancias.add(est);
+							i = vehOficiales.size();
+							igual = true;
+						}
+					}
+					if (igual = false) {
+						registraOficial(matriculaN, est);
 					}
 				}
-				if (igual == false) {
-					registraResidente(matriculaN, est);
-				}
+			} catch (Exception ex) {
+				// TODO: handle exception
+				System.out.println("se ha presentado error");
+				System.out.println("error" + ex);
 			}
+			break;
 
+		case 2:
+			try {
+				if (vehResidente.size() == 0) {
+					registraResidente(matriculaN, est);
+				} else {
+					boolean igual = false;
+					for (int i = 0; i < vehResidente.size(); i++) {
+						if (vehResidente.get(i).matricula.equals(matriculaN)) {
+							vehResidente.get(i).estancias.add(est);
+							i = vehResidente.size();
+							igual = true;
+						}
+					}
+					if (igual == false) {
+						registraResidente(matriculaN, est);
+					}
+
+				}
+			} catch (Exception ex) {
+				// TODO: handle exception
+				System.out.println("se ha presentado error");
+				System.out.println("error" + ex);
+			}
 			break;
 		case 3:
 			VehiculoNoResidente v = new VehiculoNoResidente(matriculaN);
@@ -117,13 +143,13 @@ public class Aparcamiento {
 	}
 
 	public void generaInformePagosResidentes() {
-		try {			
+		try {
 			FileWriter archivo = new FileWriter("InformeMesActual.txt");
 			BufferedWriter contenido = new BufferedWriter(archivo);
 			contenido.write("Matricula          ");
 			contenido.write("Tiempo Acumulado(Min)        ");
 			contenido.write("Valor a pagar");
-			
+
 			for (VehiculoResidente vehRes : vehResidente) {
 				contenido.newLine();
 				contenido.write(vehRes.matricula + "                ");
@@ -135,7 +161,7 @@ public class Aparcamiento {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
