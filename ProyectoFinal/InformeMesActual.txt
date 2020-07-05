@@ -1,0 +1,3 @@
+Matricula          Tiempo Acumulado(Min)        Valor a pagar
+DAR100                4                              100.0
+DAR200                4                              100.0
